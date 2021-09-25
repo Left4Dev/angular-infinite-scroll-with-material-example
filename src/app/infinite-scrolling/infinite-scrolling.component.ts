@@ -1,5 +1,6 @@
 import { Component, OnInit,NgZone, ViewChild } from '@angular/core';
-import { ApiService, User } from '../api.service';
+import { ApiService } from '../api.service';
+import { User } from "../types/User";
 import {  filter, map, pairwise, throttleTime } from 'rxjs/operators';
 @Component({
   selector: 'app-infinite-scrolling',

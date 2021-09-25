@@ -1,16 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
+import { User } from './types/User';
 
-export interface User {
-    alphanumeric: string;
-    name:         string;
-    phone:        string;
-    email:        string;
-    address:      string;
-    list:         number | string;
-    id:           number;
-}
 @Injectable()
 export class ApiService {
   constructor(private http: HttpClient) {}
