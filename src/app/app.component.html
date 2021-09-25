@@ -6,10 +6,16 @@
   <mat-list>
     <ng-container *cdkVirtualFor="let item of listItems">
       <mat-list-item>
+        <h3> {{item.name}} </h3>
+      </mat-list-item>
+      <mat-list-item>
         <!-- <img matListAvatar [src]="item.image"> -->
-        <h3 matLine> {{item.name}} </h3>
+        <h3 matLine> {{item.phone}} </h3>
         <p matLine>
-          <span> {{item.content}} </span>
+          <span> {{item.address}} </span>
+        </p>
+        <p matLine>
+          <span> {{item.email}} </span>
         </p>
         <button mat-icon-button [matMenuTriggerFor]="itemMenu">
           <mat-icon>

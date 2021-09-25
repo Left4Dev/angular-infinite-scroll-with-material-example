@@ -1,7 +1,7 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, NgZone, ViewChild } from '@angular/core';
 import { ApiService, User } from './api.service';
-import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
+import { delay, filter, map, pairwise, throttleTime } from 'rxjs/operators';
 import { timer } from 'rxjs';
 
 @Component({
@@ -12,22 +12,13 @@ import { timer } from 'rxjs';
 export class AppComponent {
   @ViewChild('scroller') scroller: any;
   title = 'angular-playground';
-  users: User[] = [];
 
-
-  listItems:any[] = [];
+  listItems:User[] = [];
 
   loading = false;
   page = 0;
   lastPage = false;
-  constructor(private ngZone: NgZone,private api: ApiService) {
-
-  }
-
-  // ngOnInit(){
-  //   this.api.getUsers().subscribe((data: User[])=>{  this.users = data })
-  // }
-
+  constructor(private ngZone: NgZone,private api: ApiService) { }
 
   ngOnInit(): void {
     this.fetchMore();
@@ -39,7 +30,8 @@ export class AppComponent {
       map(() => this.scroller.measureScrollOffset('bottom')),
       pairwise(),
       filter(([y1, y2]) => (y2 < y1 && y2 < 140)),
-      throttleTime(2000)
+      throttleTime(50)
+
     ).subscribe(() => {
       this.ngZone.run(() => {
         this.fetchMore();
@@ -54,7 +46,7 @@ export class AppComponent {
 
     this.loading = true;
 
-    this.api.getUsers({page:this.page}).subscribe((data:User[]) => this.appendData(data));
+    this.api.getUsers({ page:this.page }).subscribe((data:User[]) => this.appendData(data));
 
   }
   appendData(data: User[]){
@@ -65,7 +57,6 @@ export class AppComponent {
         return
       }
 
-      this.users = data
       this.listItems = [...this.listItems, ...data];
 
       this.page++;
