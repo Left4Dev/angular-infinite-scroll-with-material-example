@@ -1,4 +1,4 @@
-import { Component, OnInit,NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit,NgZone, ViewChild, Input } from '@angular/core';
 import { ApiService } from '../api.service';
 import { User } from "../types/User";
 import {  filter, map, pairwise, throttleTime } from 'rxjs/operators';
@@ -10,8 +10,7 @@ import {  filter, map, pairwise, throttleTime } from 'rxjs/operators';
 export class InfiniteScrollingComponent implements OnInit {
   @ViewChild('scroller') scroller: any;
   title = 'angular-playground';
-
-  listItems:User[] = [];
+  listItems: User[] = [];
 
   loading = false;
   page = 0;
